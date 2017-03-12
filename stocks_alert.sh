@@ -20,6 +20,8 @@ import sys
 import os
 import datetime
 import logging, logging.handlers
+from googlefinance import getQuotes
+import json
 
 #### VARIABLES #########################################################
 from configobj import ConfigObj
@@ -33,23 +35,23 @@ LOG_FOR_ROTATE = 10
 
 #### LOGGER #########################################################
 try:
-logger = logging.getLogger('sa')
-loggerHandler = logging.handlers.TimedRotatingFileHandler(INTERNAL_LOG_FILE, 'midnight', 1, backupCount=LOG_FOR_ROTATE)
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-loggerHandler.setFormatter(formatter)
-logger.addHandler(loggerHandler)
-logger.setLevel(logging.DEBUG)
+	logger = logging.getLogger('sa')
+	loggerHandler = logging.handlers.TimedRotatingFileHandler(INTERNAL_LOG_FILE, 'midnight', 1, backupCount=LOG_FOR_ROTATE)
+	formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+	loggerHandler.setFormatter(formatter)
+	logger.addHandler(loggerHandler)
+	logger.setLevel(logging.DEBUG)
 except:
-print '------------------------------------------------------------------'
-print '[ERROR] Error writing log at %s' % INTERNAL_LOG_FILE
-print '[ERROR] Please verify path folder exits and write permissions'
-print '------------------------------------------------------------------'
-exit()
+	print '------------------------------------------------------------------'
+	print '[ERROR] Error writing log at %s' % INTERNAL_LOG_FILE
+	print '[ERROR] Please verify path folder exits and write permissions'
+	print '------------------------------------------------------------------'
+	exit()
 ########################################################################
 
 def main():
-
+	 print json.dumps(getQuotes('AAPL'), indent=2)
 
 if __name__ == '__main__':
-main()
-#test()
+	main()
+	#test()
